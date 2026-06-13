@@ -59,21 +59,10 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
                         child: const ProfileGreetingWidget(),
                       ),
-                color: AppColors.primary,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    children: [
                       // Gradient header
                       Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          gradient: AppColors.primaryGradient,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(28),
-                            bottomRight: Radius.circular(28),
-                          ),
-                        ),
+                        color: AppColors.primary,
                         padding: EdgeInsets.fromLTRB(
                             20, MediaQuery.of(context).padding.top + 12, 20, 94),
                         child: Row(
