@@ -123,7 +123,7 @@ class DkgIcons {
   static const IconData mail = Icons.mail_outline_rounded;
   static const IconData email = Icons.email_outlined;
   static const IconData message = Icons.message_outlined;
-  static const IconData phone_lightning = Icons.flash_on_rounded;
+  static const IconData phoneLightning = Icons.flash_on_rounded;
 
   // Actions
   static const IconData plus = Icons.add_rounded;
@@ -225,6 +225,6 @@ class DkgIcons {
   static const IconData trending = Icons.trending_up_rounded;
   static const IconData trendingDown = Icons.trending_down_rounded;
   static const IconData chart = Icons.bar_chart_outlined;
-  static const IconData pie = Icons.pie_chart_outlined;
+  static const IconData pie = Icons.pie_chart_rounded;
   static const IconData analytics = Icons.analytics_outlined;
 }

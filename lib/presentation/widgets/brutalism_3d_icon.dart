@@ -290,13 +290,13 @@ class TransactionTypeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _getColorByType(type);
+    final accentColor = _getColorByType(type);
 
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: color,
+        color: accentColor,
         border: Border.all(
           color: AppColors.charcoal,
           width: 1.5,
