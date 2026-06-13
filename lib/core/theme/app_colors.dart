@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Premium Brutalism Palette
+  // Premium Brutalism Palette - UPDATED FOR BETTER CONTRAST & BRIGHTNESS
 
-  // Primary: Deep Navy (Premium dark base)
-  static const Color primary = Color(0xFF1A1F3A);      // Deep navy
-  static const Color primaryLight = Color(0xFF2D3B5F); // Medium navy
-  static const Color primaryDark = Color(0xFF0F1428);  // Very dark navy
+  // Primary: Charcoal (darker but not black - better contrast)
+  static const Color primary = Color(0xFF2C3E50);      // Charcoal
+  static const Color primaryLight = Color(0xFF34495E); // Medium charcoal
+  static const Color primaryDark = Color(0xFF1A252F);  // Dark charcoal
 
-  // Accent: Gold (Premium luxury)
-  static const Color accent = Color(0xFFD4AF37);       // Gold
-  static const Color accentLight = Color(0xFFE8C547);  // Light gold
-  static const Color accentDark = Color(0xFFA89128);   // Dark gold
+  // Accent: Vibrant Gold (brighter, more attention-grabbing)
+  static const Color accent = Color(0xFFFFD700);       // Bright gold
+  static const Color accentLight = Color(0xFFFFF44F);  // Lighter gold
+  static const Color accentDark = Color(0xFFFFC700);   // Darker gold
 
-  // Semantic
-  static const Color success = Color(0xFF2D5F4F);      // Deep teal
-  static const Color warning = Color(0xFF8B6F47);      // Bronze
-  static const Color error = Color(0xFF5F2C2C);        // Deep red
-  static const Color info = Color(0xFF3A4F5F);         // Slate blue
+  // Semantic - BRIGHTER VERSIONS
+  static const Color success = Color(0xFF27AE60);      // Bright emerald green
+  static const Color warning = Color(0xFFF39C12);      // Bright orange/amber
+  static const Color error = Color(0xFFE74C3C);        // Bright red
+  static const Color info = Color(0xFF3498DB);         // Bright blue
 
-  // Neutral: Brutalism monochrome
-  static const Color ink = Color(0xFF0F1428);          // Nearly black
-  static const Color charcoal = Color(0xFF2D3B4F);     // Dark gray
-  static const Color slate = Color(0xFF4B5F7F);        // Medium gray
-  static const Color silver = Color(0xFF9DAFBF);       // Light gray
-  static const Color white = Color(0xFFFAFAFA);        // Off-white (not pure white)
+  // Neutral: Better contrast
+  static const Color ink = Color(0xFF1A1A1A);          // Almost black (not pure black)
+  static const Color charcoal = Color(0xFF2C3E50);     // Dark charcoal
+  static const Color slate = Color(0xFF7F8C8D);        // Medium gray
+  static const Color silver = Color(0xFFBDC3C7);       // Light gray
+  static const Color white = Color(0xFFFFFFFF);        // Pure white
 
-  // Background
-  static const Color bg = Color(0xFFF5F5F5);           // Light gray bg
-  static const Color bgDark = Color(0xFF1A1F3A);       // Dark bg (same as primary)
+  // Background - BRIGHT & CLEAN
+  static const Color bg = Color(0xFFFAFBFC);           // Off-white (very light)
+  static const Color bgDark = Color(0xFF2C3E50);       // Dark bg (charcoal)
 
   // Legacy support - map to new palette
   static const Color green = success;
@@ -42,13 +42,13 @@ class AppColors {
   static const Color line = silver;
   static const Color line2 = silver;
 
-  // Surface colors - map to new palette for backward compatibility
-  static const Color primarySurface = primary;
+  // Surface colors - BRIGHT VERSIONS
+  static const Color primarySurface = Color(0xFFECF0F1);   // Very light gray (not primary color)
   static const Color primaryBorder = accent;
-  static const Color greenSurface = success;
-  static const Color amberSurface = warning;
-  static const Color redSurface = error;
-  static const Color violetSurface = info;
+  static const Color greenSurface = Color(0xFFD5F4E6);     // Light green
+  static const Color amberSurface = Color(0xFFFEEDD2);     // Light orange
+  static const Color redSurface = Color(0xFFFFDCCE);       // Light red
+  static const Color violetSurface = Color(0xFFEBF5FB);    // Light blue
 
   // Gradients - Brutalism (solid, no gradients)
   static const LinearGradient primaryGradient = LinearGradient(
@@ -58,26 +58,25 @@ class AppColors {
     colors: [primary, primary, primary],  // Solid color only
   );
 
-  // No shadows for brutalism - replaced with stark borders
+  // No shadows for brutalism
   static const List<BoxShadow> shadowCard = [];
   static const List<BoxShadow> shadowSoft = [];
   static const List<BoxShadow> shadowPrimary = [];
 
-  // Tone map for FeatureIcon (premium colors)
+  // Tone map for FeatureIcon
   static Map<String, List<Color>> tones = {
-    'blue': [primary, accent],           // Navy + Gold
-    'green': [success, accentLight],     // Teal + Light Gold
-    'amber': [warning, accent],          // Bronze + Gold
-    'red': [error, white],               // Deep Red + White
-    'violet': [info, accent],            // Slate Blue + Gold
-    'slate': [charcoal, white],          // Charcoal + White
-    'gold': [primary, accent],           // Navy + Gold (premium)
+    'blue': [primarySurface, info],            // Light gray + Bright blue
+    'green': [greenSurface, success],          // Light green + Bright green
+    'amber': [amberSurface, warning],          // Light orange + Bright orange
+    'red': [redSurface, error],                // Light red + Bright red
+    'violet': [violetSurface, info],           // Light blue + Bright blue
+    'slate': [primarySurface, slate],          // Light gray + Medium gray
+    'gold': [primarySurface, accent],          // Light gray + Bright gold
   };
 
   static List<Color> tone(String name) => tones[name] ?? tones['blue']!;
 
   // Premium border color for brutalism
-  static const Color border = ink;                      // Stark black borders
+  static const Color border = charcoal;                  // Dark borders for stark look
   static const double borderWidth = 2.0;                // Thick borders
 }
-
