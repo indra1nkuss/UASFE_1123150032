@@ -11,6 +11,8 @@ import '../../widgets/app_avatar.dart';
 import '../../widgets/app_logo.dart';
 import '../../widgets/feature_icon.dart';
 import '../../widgets/transaction_row.dart';
+import '../../widgets/profile_greeting_widget.dart';
+import '../../widgets/brutalism_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _hideBalance = false;
+  int _currentNavIndex = 0;
 
   @override
   void initState() {
@@ -47,6 +50,15 @@ class _HomePageState extends State<HomePage> {
 
               return RefreshIndicator(
                 onRefresh: () async => context.read<AccountBloc>().add(AccountRefreshRequested()),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      // Profile Greeting Widget
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+                        child: const ProfileGreetingWidget(),
+                      ),
                 color: AppColors.primary,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -155,6 +167,27 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               );
+            },
+          ),
+          bottomNavigationBar: BrutalismNavBar(
+            currentIndex: _currentNavIndex,
+            onTap: (index) {
+              setState(() => _currentNavIndex = index);
+              // Navigate based on index
+              switch (index) {
+                case 0:
+                  // Home - already here
+                  break;
+                case 1:
+                  context.go('/history');
+                  break;
+                case 2:
+                  context.go('/scan');
+                  break;
+                case 3:
+                  context.go('/profile');
+                  break;
+              }
             },
           ),
         );
