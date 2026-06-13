@@ -27,7 +27,7 @@ class AppTheme {
         iconTheme: const IconThemeData(color: AppColors.accent),
         titleTextStyle: const TextStyle(
           fontFamily: fontFamily,
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: FontWeight.w800,
           color: AppColors.accent,
         ),
@@ -36,30 +36,68 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.accent,
           foregroundColor: AppColors.primary,
-          minimumSize: const Size(double.infinity, 56),
+          minimumSize: const Size(double.infinity, 58),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),
           side: const BorderSide(
-            color: AppColors.ink,
-            width: 2.0,
+            color: AppColors.charcoal,
+            width: 2.5,
           ),
           textStyle: const TextStyle(
             fontFamily: fontFamily,
-            fontSize: 16,
+            fontSize: 17,
             fontWeight: FontWeight.w800,
-            letterSpacing: -0.3,
+            letterSpacing: 0.5,
           ),
+        ),
+      ),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 32,
+          fontWeight: FontWeight.w800,
+          color: AppColors.ink,
+        ),
+        displayMedium: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 28,
+          fontWeight: FontWeight.w800,
+          color: AppColors.ink,
+        ),
+        headlineSmall: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          color: AppColors.charcoal,
+        ),
+        bodyLarge: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.charcoal,
+        ),
+        bodyMedium: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: AppColors.slate,
+        ),
+        labelLarge: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 15,
+          fontWeight: FontWeight.w700,
+          color: AppColors.charcoal,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.zero,
           borderSide: const BorderSide(
-            color: AppColors.border,
+            color: AppColors.charcoal,
             width: 2.0,
           ),
         ),
@@ -67,7 +105,7 @@ class AppTheme {
           borderRadius: BorderRadius.zero,
           borderSide: const BorderSide(
             color: AppColors.accent,
-            width: 2.0,
+            width: 2.5,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -81,12 +119,12 @@ class AppTheme {
           borderRadius: BorderRadius.zero,
           borderSide: const BorderSide(
             color: AppColors.silver,
-            width: 1.0,
+            width: 1.5,
           ),
         ),
         labelStyle: const TextStyle(
           fontFamily: fontFamily,
-          fontSize: 14,
+          fontSize: 15,
           fontWeight: FontWeight.w700,
           color: AppColors.charcoal,
         ),
@@ -100,8 +138,8 @@ class AppTheme {
       dividerColor: AppColors.silver,
       dividerTheme: const DividerThemeData(
         color: AppColors.silver,
-        thickness: 1.0,
-        space: 1.0,
+        thickness: 1.5,
+        space: 2.0,
       ),
     );
   }
