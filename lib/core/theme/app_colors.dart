@@ -42,6 +42,14 @@ class AppColors {
   static const Color line = silver;
   static const Color line2 = silver;
 
+  // Surface colors - map to new palette for backward compatibility
+  static const Color primarySurface = primary;
+  static const Color primaryBorder = accent;
+  static const Color greenSurface = success;
+  static const Color amberSurface = warning;
+  static const Color redSurface = error;
+  static const Color violetSurface = info;
+
   // Gradients - Brutalism (solid, no gradients)
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
