@@ -52,10 +52,22 @@ class _HomePageState extends State<HomePage> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      // Profile Greeting Widget
+                      const SizedBox(height: 12),
+                      // Profile Greeting Widget dengan padding rapih
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
-                        child: const ProfileGreetingWidget(),
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.line2,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: AppColors.silver,
+                              width: 1,
+                            ),
+                          ),
+                          child: const ProfileGreetingWidget(),
+                        ),
                       ),
                       // Balance Card
                       Padding(
