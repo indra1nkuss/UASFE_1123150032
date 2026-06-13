@@ -106,6 +106,9 @@ class DkgIcons {
   static const IconData money = Icons.attach_money_rounded;
   static const IconData card = Icons.credit_card_outlined;
   static const IconData payment = Icons.payment_outlined;
+  static const IconData topup = Icons.account_balance_wallet_outlined;
+  static const IconData qris = Icons.qr_code_2_rounded;
+  static const IconData pulsa = Icons.phone_outlined;
 
   // Food & Restaurants
   static const IconData food = Icons.fastfood_rounded;
@@ -114,7 +117,8 @@ class DkgIcons {
 
   // Phone & Communication
   static const IconData phone = Icons.phone_outlined;
-  static const IconData phone2 = Icons.smartphone_rounded;
+  static const IconData phone2 = Icons.phone_outlined;
+  static const IconData smartphone = Icons.smartphone_outlined;
   static const IconData phoneCall = Icons.phone_in_talk_outlined;
   static const IconData mail = Icons.mail_outline_rounded;
   static const IconData email = Icons.email_outlined;
