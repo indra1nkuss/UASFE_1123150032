@@ -116,9 +116,10 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: Image.asset(
-                    'assets/images/profile.png',
+                    'assets/images/indra.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
+                      // Fallback jika foto tidak ada
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
