@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 12),
                       // Profile Greeting Widget dengan padding rapih
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 28),
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
