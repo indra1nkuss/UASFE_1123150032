@@ -79,47 +79,46 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Profile avatar with gradient glow animation
+        // Profile avatar with gradient glow animation (SMALLER)
         AnimatedBuilder(
           animation: _glowAnimation,
           builder: (context, child) {
             return Container(
-              width: 88,
-              height: 88,
+              width: 64,
+              height: 64,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(44),
+                borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   BoxShadow(
                     color: AppColors.accent.withValues(
                       alpha: 0.3 * _glowAnimation.value,
                     ),
-                    blurRadius: 20 * _glowAnimation.value,
-                    spreadRadius: 2 * _glowAnimation.value,
+                    blurRadius: 16 * _glowAnimation.value,
+                    spreadRadius: 1 * _glowAnimation.value,
                   ),
                 ],
                 border: Border.all(
                   color: AppColors.accent,
-                  width: 2,
+                  width: 1.5,
                 ),
               ),
               child: Container(
-                margin: const EdgeInsets.all(2),
+                margin: const EdgeInsets.all(1.5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(42),
+                  borderRadius: BorderRadius.circular(30),
                   border: Border.all(
                     color: AppColors.accent.withValues(
                       alpha: _glowAnimation.value,
                     ),
-                    width: 2,
+                    width: 1.5,
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(30),
                   child: Image.asset(
                     'assets/images/profile.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
-                      // Fallback: Circular initial
                       return Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -135,7 +134,7 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
                           child: Text(
                             'I',
                             style: TextStyle(
-                              fontSize: 36,
+                              fontSize: 28,
                               fontWeight: FontWeight.w800,
                               color: AppColors.primary,
                             ),
@@ -149,8 +148,8 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
             );
           },
         ),
-        const SizedBox(width: 16),
-        // Greeting text with animation
+        const SizedBox(width: 12),
+        // Greeting text with animation (SMALLER)
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,14 +162,14 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
                     Icon(
                       _greetingIcon,
                       color: AppColors.accent,
-                      size: 20,
+                      size: 16,
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 6),
                     Text(
                       _greeting,
                       style: const TextStyle(
                         fontFamily: 'PlusJakartaSans',
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: AppColors.slate,
                       ),
@@ -178,14 +177,14 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
                   ],
                 ),
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 4),
               FadeTransition(
                 opacity: _greetingOpacity,
                 child: const Text(
                   'Indra',
                   style: TextStyle(
                     fontFamily: 'PlusJakartaSans',
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w800,
                     color: AppColors.charcoal,
                   ),
@@ -194,7 +193,75 @@ class _ProfileGreetingWidgetState extends State<ProfileGreetingWidget>
             ],
           ),
         ),
+        // Notification widget (GRAY BACKGROUND + GLOWING BELL)
+        _buildNotificationWidget(),
       ],
+    );
+  }
+
+  Widget _buildNotificationWidget() {
+    return AnimatedBuilder(
+      animation: _glowAnimation,
+      builder: (context, child) {
+        return Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            color: AppColors.line2,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: AppColors.silver,
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.accent.withValues(
+                  alpha: 0.2 * _glowAnimation.value,
+                ),
+                blurRadius: 12 * _glowAnimation.value,
+                spreadRadius: 0,
+              ),
+            ],
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Notification bell icon with glow
+              Icon(
+                Icons.notifications_rounded,
+                size: 24,
+                color: AppColors.accent.withValues(
+                  alpha: 0.6 + (0.4 * _glowAnimation.value),
+                ),
+              ),
+              // Blinking dot
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: AppColors.accent.withValues(
+                      alpha: _glowAnimation.value,
+                    ),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.accent.withValues(
+                          alpha: 0.6 * _glowAnimation.value,
+                        ),
+                        blurRadius: 6 * _glowAnimation.value,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
