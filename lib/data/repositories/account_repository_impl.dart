@@ -14,7 +14,7 @@ class AccountRepositoryImpl implements AccountRepository {
     try {
       return await _remote.getAccount();
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -25,7 +25,7 @@ class AccountRepositoryImpl implements AccountRepository {
     try {
       return await _remote.getTransactions();
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }

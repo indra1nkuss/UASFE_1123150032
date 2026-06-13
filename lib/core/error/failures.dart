@@ -10,10 +10,11 @@ abstract class Failure extends Equatable {
 
 class ServerFailure extends Failure {
   final String? errorCode;
-  const ServerFailure(super.message, {this.errorCode});
+  final int? statusCode;
+  const ServerFailure(super.message, {this.errorCode, this.statusCode});
 
   @override
-  List<Object?> get props => [message, errorCode];
+  List<Object?> get props => [message, errorCode, statusCode];
 }
 
 class NetworkFailure extends Failure {

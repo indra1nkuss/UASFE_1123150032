@@ -23,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on UnauthorizedException catch (e) {
       throw AuthFailure(e.message, errorCode: e.errorCode);
     } on ServerException catch (e) {
-      throw ServerFailure(e.message, errorCode: e.errorCode);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -40,7 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on UnauthorizedException catch (e) {
       throw AuthFailure(e.message, errorCode: e.errorCode);
     } on ServerException catch (e) {
-      throw ServerFailure(e.message, errorCode: e.errorCode);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }

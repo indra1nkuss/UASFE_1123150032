@@ -54,11 +54,11 @@ class DefaultFirebaseOptions {
     storageBucket: 'emoney-3b6e2.firebasestorage.app',
   );
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA46uBUvmVQKsSL7HIXZG58MD9jXQCFX7c',
-    appId: '1:948878883710:ios:5363ad2b9fbe06b2a0512f',
-    messagingSenderId: '948878883710',
-    projectId: 'fir-emoney-e9256',
-    storageBucket: 'fir-emoney-e9256.firebasestorage.app',
+    apiKey: 'AIzaSyBRCzWZJshszEx0OgwQRDOCEyqVG3PG67g',
+    appId: '1:184412172720:ios:d7df82da6b93e5d3bf2675',
+    messagingSenderId: '184412172720',
+    projectId: 'emoney-3b6e2',
+    storageBucket: 'emoney-3b6e2.firebasestorage.app',
     iosBundleId: 'com.kampus.dompetKampusGlobal',
   );
 

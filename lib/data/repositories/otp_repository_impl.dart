@@ -15,7 +15,7 @@ class OtpRepositoryImpl implements OtpRepository {
     try {
       return await _remote.sendOtpFirebase();
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -26,7 +26,7 @@ class OtpRepositoryImpl implements OtpRepository {
     try {
       return await _remote.sendOtpEmail();
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -40,7 +40,7 @@ class OtpRepositoryImpl implements OtpRepository {
     } on InvalidOtpException catch (e) {
       throw InvalidOtpFailure(e.message);
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -51,7 +51,7 @@ class OtpRepositoryImpl implements OtpRepository {
     try {
       return await _remote.registerTotp();
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -68,7 +68,7 @@ class OtpRepositoryImpl implements OtpRepository {
     } on InvalidOtpException catch (e) {
       throw InvalidOtpFailure(e.message);
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }

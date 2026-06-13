@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../injection/injection_container.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../widgets/app_button.dart';
 import '../../widgets/app_logo.dart';
@@ -17,7 +18,22 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthBloc>().add(AuthCheckRequested());
+    _restoreTokenAndCheckAuth();
+  }
+
+  Future<void> _restoreTokenAndCheckAuth() async {
+    // Restore token from storage to ApiClient
+    final authRepo = sl<AuthRepository>();
+    final savedToken = await authRepo.getSavedToken();
+
+    if (savedToken != null) {
+      setApiToken(savedToken);  // Set to ApiClient headers
+    }
+
+    // Then check authentication state
+    if (mounted) {
+      context.read<AuthBloc>().add(AuthCheckRequested());
+    }
   }
 
   @override

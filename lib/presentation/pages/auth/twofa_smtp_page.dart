@@ -6,9 +6,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../blocs/auth/auth_bloc.dart';
 import '../../blocs/auth/otp_bloc.dart';
-import '../../widgets/app_button.dart';
 import '../../widgets/code_input.dart';
-import '../../widgets/feature_icon.dart';
 
 class TwoFASmtpPage extends StatefulWidget {
   final String mode; // 'login' or 'setup'
@@ -34,8 +32,11 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
     _countdown?.cancel();
     setState(() => _timer = AppConstants.otpResendSeconds);
     _countdown = Timer.periodic(const Duration(seconds: 1), (t) {
-      if (_timer <= 0) t.cancel();
-      else setState(() => _timer--);
+      if (_timer <= 0) {
+        t.cancel();
+      } else {
+        setState(() => _timer--);
+      }
     });
   }
 
@@ -82,7 +83,7 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
               Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: const Icon(DkgIcons.arrowLeft, color: AppColors.ink),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.ink),
                   onPressed: () => context.go(widget.mode == 'setup' ? '/setup-2fa' : '/login'),
                 ),
               ),
@@ -91,7 +92,6 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
                   padding: const EdgeInsets.fromLTRB(28, 8, 28, 24),
                   child: Column(
                     children: [
-                      const FeatureIcon(icon: DkgIcons.mail, tone: 'blue', size: 74, iconSize: 36),
                       const SizedBox(height: 18),
                       const Text('Masukkan Email OTP',
                           style: TextStyle(
@@ -108,7 +108,7 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
                       const SizedBox(height: 28),
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 80),
-                        transform: _hasError ? (Matrix4.identity()..translate(8.0)) : Matrix4.identity(),
+                        transform: _hasError ? (Matrix4.translationValues(8.0, 0, 0)) : Matrix4.identity(),
                         child: CodeInput(value: _code, onChanged: _onCodeChanged, hasError: _hasError),
                       ),
                       if (_hasError) ...[
@@ -131,7 +131,7 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(DkgIcons.info, size: 16, color: Color(0xFFB5760B)),
+                            Icon(Icons.info_outline, size: 16, color: Color(0xFFB5760B)),
                             SizedBox(width: 8),
                             Text('Cek email inbox atau spam kamu',
                                 style: TextStyle(
@@ -154,7 +154,7 @@ class _TwoFASmtpPageState extends State<TwoFASmtpPage> {
                                 context.read<OtpBloc>().add(OtpSendEmail());
                                 _startTimer();
                               },
-                              icon: const Icon(DkgIcons.refresh, size: 16, color: AppColors.primary),
+                              icon: const Icon(Icons.refresh, size: 16, color: AppColors.primary),
                               label: const Text('Kirim ulang kode',
                                   style: TextStyle(
                                     fontFamily: 'PlusJakartaSans',

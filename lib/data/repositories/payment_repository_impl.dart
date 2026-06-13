@@ -12,8 +12,16 @@ class PaymentRepositoryImpl implements PaymentRepository {
   Future<({double balance, double amount})> topup(double amount) async {
     try {
       return await _remote.topup(amount);
+    } on InvalidOtpException catch (e) {
+      throw InvalidOtpFailure(e.message);
+    } on InsufficientBalanceException catch (e) {
+      throw InsufficientBalanceFailure(
+        balance: e.balance ?? 0,
+        amount: e.amount ?? 0,
+        message: e.message,
+      );
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }
@@ -42,7 +50,7 @@ class PaymentRepositoryImpl implements PaymentRepository {
         message: e.message,
       );
     } on ServerException catch (e) {
-      throw ServerFailure(e.message);
+      throw ServerFailure(e.message, errorCode: e.errorCode, statusCode: e.statusCode);
     } on NetworkException catch (e) {
       throw NetworkFailure(e.message);
     }

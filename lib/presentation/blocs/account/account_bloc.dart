@@ -54,8 +54,14 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       final account = await _getAccount();
       final transactions = await _getTransactions();
       emit(AccountLoaded(account: account, transactions: transactions));
+    } on AuthFailure {
+      emit(AccountError('Sesi berakhir. Silakan login kembali.'));
     } on ServerFailure catch (e) {
-      emit(AccountError(e.message));
+      if (e.statusCode == 401) {
+        emit(AccountError('Sesi berakhir. Silakan login kembali.'));
+      } else {
+        emit(AccountError(e.message));
+      }
     } on NetworkFailure catch (e) {
       emit(AccountError(e.message));
     } catch (e) {

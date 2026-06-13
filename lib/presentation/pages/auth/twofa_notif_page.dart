@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../blocs/auth/otp_bloc.dart';
-import '../../widgets/feature_icon.dart';
 
 class TwoFANotifPage extends StatefulWidget {
   final String mode;
@@ -29,7 +28,9 @@ class _TwoFANotifPageState extends State<TwoFANotifPage> {
         if (state is OtpVerified) {
           setState(() => _phase = 'approved');
           Future.delayed(const Duration(milliseconds: 900), () {
-            if (mounted) context.go('/home');
+            if (mounted && context.mounted) {
+              context.go('/home');
+            }
           });
         } else if (state is OtpError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -55,13 +56,20 @@ class _TwoFANotifPageState extends State<TwoFANotifPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      FeatureIcon(
-                        icon: _phase == 'approved'
-                            ? Icons.verified_user_outlined
-                            : Icons.notifications_outlined,
-                        tone: 'green',
-                        size: 82,
-                        iconSize: 40,
+                      Container(
+                        width: 82,
+                        height: 82,
+                        decoration: BoxDecoration(
+                          color: _phase == 'approved' ? AppColors.greenSurface : AppColors.primarySurface,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Icon(
+                          _phase == 'approved'
+                              ? Icons.verified_user_outlined
+                              : Icons.notifications_outlined,
+                          size: 40,
+                          color: _phase == 'approved' ? AppColors.green : AppColors.primary,
+                        ),
                       ),
                       const SizedBox(height: 26),
                       Text(
