@@ -1,7 +1,7 @@
-# Dompet Kampus Global (eMoneyID)
+# EmoneyID
 
 ## 📱 Deskripsi Aplikasi
-**Dompet Kampus Global (eMoneyID)** adalah aplikasi dompet digital inovatif yang dirancang khusus untuk ekosistem kampus. Aplikasi ini memungkinkan mahasiswa dan staf untuk melakukan berbagai transaksi sehari-hari seperti pengisian saldo (top-up), transfer antar pengguna, pembayaran kantin, pembayaran Uang Kuliah Tunggal (UKT), hingga penyewaan fasilitas kampus (seperti RentBike). 
+*eMoneyID** adalah aplikasi dompet digital inovatif yang dirancang khusus untuk Payment. Aplikasi ini memungkinkan anda  untuk melakukan berbagai transaksi sehari-hari seperti pengisian saldo (top-up), transfer antar pengguna,  penyewaan fasilitas/pembelian sepeda (seperti RentBike). 
 
 Aplikasi ini dilengkapi dengan fitur keamanan canggih berupa Autentikasi Dua Langkah (2FA) menggunakan *Google Authenticator* (TOTP), serta mendukung integrasi *Deep Link* untuk memproses pembayaran langsung dari aplikasi pihak ketiga secara mulus.
 
