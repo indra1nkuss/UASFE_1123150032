@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/currency_formatter.dart';
+import '../../../core/services/updated_deep_link_handler.dart';
 import '../../blocs/payment/payment_bloc.dart';
 import '../../widgets/pin_pad.dart';
 
@@ -21,9 +22,10 @@ class _PinPageState extends State<PinPage> {
   bool _hasError = false;
 
   void _onComplete(String pin) {
-    // In production, validate PIN with backend
-    // Here we simulate: any 6-digit PIN triggers the payment
-    setState(() => _busy = true);
+    setState(() {
+      _pin = pin;
+      _busy = true;
+    });
     _processPayment();
   }
 
@@ -43,13 +45,21 @@ class _PinPageState extends State<PinPage> {
       context.read<PaymentBloc>().add(PaymentTopupRequested(
         (flow['amount'] as num).toDouble(),
       ));
-    } else if (kind == 'payment' || kind == 'deeplink') {
+    } else if (kind == 'payment' || kind == 'deeplink_dummy') {
       // QRIS payment → also uses transfer endpoint
       context.read<PaymentBloc>().add(PaymentTransferRequested(
         amount: (flow['amount'] as num).toDouble(),
         description: flow['description'] as String? ?? 'Pembayaran QRIS',
         otpCode: '000000',
         otpType: AppConstants.otpTypeTotp,
+      ));
+    } else if (kind == 'deeplink_real') {
+      context.read<PaymentBloc>().add(ProcessDeepLinkPaymentEvent(
+        trxId: flow['trxId'] as String,
+        amount: (flow['amount'] as num).toDouble(),
+        description: flow['description'] as String? ?? '',
+        sourceApp: flow['sourceApp'] as String? ?? 'rentbike',
+        otpCode: _pin, // Kode TOTP Google Authenticator yang diketik user
       ));
     }
   }
@@ -58,7 +68,23 @@ class _PinPageState extends State<PinPage> {
   Widget build(BuildContext context) {
     return BlocListener<PaymentBloc, PaymentState>(
       listener: (context, state) {
-        if (state is PaymentTransferSuccess) {
+        if (state is DeepLinkPaymentSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('✅ Pembayaran berhasil! Sisa saldo: ${CurrencyFormatter.format(state.remainingBalance)}'),
+              backgroundColor: AppColors.primary,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          Future.delayed(const Duration(milliseconds: 1500), () async {
+            // Kembali ke aplikasi pemanggil (RentBike)
+            await DeepLinkHandler.returnToRentBike(
+              trxId: widget.flowData['trxId'] ?? '',
+              success: true,
+            );
+            if (context.mounted) context.go('/home');
+          });
+        } else if (state is PaymentTransferSuccess) {
           final result = state.result;
           context.go('/success', extra: {
             'title': 'Transfer berhasil',
@@ -101,7 +127,15 @@ class _PinPageState extends State<PinPage> {
                 alignment: Alignment.topLeft,
                 child: IconButton(
                   icon: const Icon(Icons.close_rounded, color: AppColors.ink),
-                  onPressed: () => context.go('/home'),
+                  onPressed: () {
+                    if (widget.flowData['kind'] == 'deeplink_real') {
+                      DeepLinkHandler.returnToRentBike(
+                        trxId: widget.flowData['trxId'] ?? '',
+                        success: false,
+                      );
+                    }
+                    context.go('/home');
+                  },
                 ),
               ),
               if (_busy) ...[
@@ -137,17 +171,23 @@ class _PinPageState extends State<PinPage> {
                           child: const Center(child: Icon(Icons.lock_outline_rounded, size: 26, color: AppColors.primary)),
                         ),
                         const SizedBox(height: 16),
-                        const Text('Masukkan PIN',
-                            style: TextStyle(
-                              fontFamily: 'PlusJakartaSans',
-                              fontSize: 21,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.ink,
-                            )),
+                        Text(
+                          widget.flowData['kind'] == 'deeplink_real'
+                              ? 'Konfirmasi Pembayaran'
+                              : 'Masukkan PIN',
+                          style: const TextStyle(
+                            fontFamily: 'PlusJakartaSans',
+                            fontSize: 21,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.ink,
+                          )),
                         const SizedBox(height: 6),
-                        const Text('Masukkan 6 digit PIN keamanan kamu',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 13.5, color: AppColors.slate500)),
+                        Text(
+                          widget.flowData['kind'] == 'deeplink_real'
+                              ? 'Masukkan kode 6 digit dari Google Authenticator'
+                              : 'Masukkan 6 digit PIN keamanan kamu',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 13.5, color: AppColors.slate500)),
                         const Spacer(),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 80),
