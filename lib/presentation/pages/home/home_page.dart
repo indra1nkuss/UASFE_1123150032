@@ -7,7 +7,6 @@ import '../../../core/utils/currency_formatter.dart';
 import '../../../domain/entities/transaction_entity.dart';
 import '../../blocs/account/account_bloc.dart';
 import '../../blocs/auth/auth_bloc.dart';
-import '../../widgets/app_avatar.dart';
 import '../../widgets/app_logo.dart';
 import '../../widgets/feature_icon.dart';
 import '../../widgets/transaction_row.dart';
@@ -33,10 +32,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        final user = authState is AuthAuthenticated ? authState.user : null;
-        final firstName = user?.firstName ?? 'Kamu';
-        final fullName = user?.name ?? 'User';
-
         return Scaffold(
           backgroundColor: AppColors.bg,
           body: BlocBuilder<AccountBloc, AccountState>(
@@ -396,7 +391,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Coba bayar dari toko online',
+                      Text('Simulasi Pembayaran RentBike',
                           style: TextStyle(
                             fontFamily: 'PlusJakartaSans',
                             fontSize: 14.5,
@@ -404,7 +399,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           )),
                       SizedBox(height: 2),
-                      Text('Simulasi checkout e-commerce → bayar via DKG',
+                      Text('Sewa sepeda listrik → bayar via DKG',
                           style: TextStyle(
                             fontFamily: 'PlusJakartaSans',
                             fontSize: 12.5,
