@@ -21,7 +21,6 @@ class Brutalism3DIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = AppColors.tone(tone);
     final mainColor = colors[1];
-    final bgColor = colors[0];
 
     if (!elevated) {
       // Flat brutalism design

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/services/updated_deep_link_handler.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../domain/repositories/auth_repository.dart';
 import '../../../injection/injection_container.dart';
@@ -42,7 +43,13 @@ class _SplashPageState extends State<SplashPage> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          context.go('/home');
+          if (DeepLinkHandler.pendingPaymentData != null) {
+            final data = DeepLinkHandler.pendingPaymentData;
+            DeepLinkHandler.pendingPaymentData = null; // Reset
+            context.go('/merchant', extra: data);
+          } else {
+            context.go('/home');
+          }
         } else if (state is AuthUnauthenticated) {
           // Stay on splash to show welcome
         }

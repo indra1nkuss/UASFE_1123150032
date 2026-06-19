@@ -17,8 +17,10 @@ import '../../presentation/pages/auth/verify_email_page.dart';
 import '../../presentation/pages/history/history_page.dart';
 import '../../presentation/pages/home/home_page.dart';
 import '../../presentation/pages/merchant/merchant_checkout_page.dart';
+import '../../presentation/pages/payment/deeplink_payment_page.dart';
 import '../../presentation/pages/payment/payment_qr_page.dart';
 import '../../presentation/pages/payment/pin_page.dart';
+import '../../domain/entities/deeplink_payment_entity.dart';
 import '../../presentation/pages/promo/promo_page.dart';
 import '../../presentation/pages/splash/splash_page.dart';
 import '../../presentation/pages/success/success_page.dart';
@@ -159,7 +161,32 @@ class AppRouter {
               ));
             },
           ),
-          GoRoute(path: '/merchant', builder: (_, __) => _withPayment(const MerchantCheckoutPage())),
+          GoRoute(
+            path: '/merchant',
+            builder: (_, state) {
+              final extra = state.extra;
+              if (extra is DeepLinkPaymentEntity) {
+                return _withPayment(MerchantCheckoutPage(paymentData: extra));
+              }
+
+              // Jika dibuka via native Deep Link, go_router akan mem-parsing uri
+              final query = state.uri.queryParameters;
+              if (query.containsKey('trxId') && query.containsKey('bikeName') && query.containsKey('amount')) {
+                final paymentData = DeepLinkPaymentEntity(
+                  trxId: query['trxId']!,
+                  bikeName: query['bikeName']!,
+                  amount: double.tryParse(query['amount'] ?? '0') ?? 0.0,
+                  sourceApp: 'rentbike',
+                  itemsJson: query['itemsJson'],
+                );
+                return _withPayment(MerchantCheckoutPage(paymentData: paymentData));
+              }
+
+              // Fallback jika tidak ada data sama sekali (tombol manual)
+              return _withPayment(const MerchantCheckoutPage(paymentData: null));
+            },
+          ),
+          // Deep Link payment dari RentBike dihapus dan dialihkan sepenuhnya ke /merchant
         ],
       );
 

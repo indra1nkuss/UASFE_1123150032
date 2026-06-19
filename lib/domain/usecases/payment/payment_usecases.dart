@@ -24,3 +24,23 @@ class TransferUsecase {
         otpType: otpType,
       );
 }
+
+/// Use case untuk pembayaran Deep Link dari RentBike.
+/// Meneruskan kode TOTP Google Authenticator ke repository untuk validasi backend.
+class DeepLinkPaymentUsecase {
+  final PaymentRepository _repository;
+  DeepLinkPaymentUsecase(this._repository);
+
+  Future<double> call({
+    required String trxId,
+    required double amount,
+    required String description,
+    required String otpCode,
+  }) =>
+      _repository.deductBalance(
+        trxId: trxId,
+        amount: amount,
+        description: description,
+        otpCode: otpCode,
+      );
+}

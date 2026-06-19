@@ -5,7 +5,7 @@ class AppConstants {
   // API
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://192.168.0.105:8080',
+    defaultValue: 'http://192.168.0.106:8080',
   );
   static const String apiVersion = '/v1';
   static const int connectTimeout = 30;

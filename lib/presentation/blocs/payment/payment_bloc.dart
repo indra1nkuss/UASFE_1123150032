@@ -32,6 +32,25 @@ class PaymentTransferRequested extends PaymentEvent {
   List<Object?> get props => [amount, description, otpCode, otpType];
 }
 
+class ProcessDeepLinkPaymentEvent extends PaymentEvent {
+  final String trxId;
+  final double amount;
+  final String description;
+  final String sourceApp;
+  final String otpCode;
+
+  ProcessDeepLinkPaymentEvent({
+    required this.trxId,
+    required this.amount,
+    required this.description,
+    required this.sourceApp,
+    required this.otpCode,
+  });
+
+  @override
+  List<Object?> get props => [trxId, amount, description, sourceApp, otpCode];
+}
+
 class PaymentReset extends PaymentEvent {}
 
 // States
@@ -56,6 +75,22 @@ class PaymentTransferSuccess extends PaymentState {
   PaymentTransferSuccess(this.result);
   @override
   List<Object?> get props => [result];
+}
+
+/// State berhasil untuk pembayaran Deep Link
+class DeepLinkPaymentSuccess extends PaymentState {
+  final String trxId;
+  final double amount;
+  final double remainingBalance;
+
+  DeepLinkPaymentSuccess({
+    required this.trxId,
+    required this.amount,
+    required this.remainingBalance,
+  });
+
+  @override
+  List<Object?> get props => [trxId, amount, remainingBalance];
 }
 
 class PaymentInvalidOtp extends PaymentState {
@@ -83,13 +118,19 @@ class PaymentError extends PaymentState {
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   final TopupUsecase _topup;
   final TransferUsecase _transfer;
+  final DeepLinkPaymentUsecase _deepLinkPayment;
 
-  PaymentBloc({required TopupUsecase topup, required TransferUsecase transfer})
-      : _topup = topup,
+  PaymentBloc({
+    required TopupUsecase topup,
+    required TransferUsecase transfer,
+    required DeepLinkPaymentUsecase deepLinkPayment,
+  })  : _topup = topup,
         _transfer = transfer,
+        _deepLinkPayment = deepLinkPayment,
         super(PaymentInitial()) {
     on<PaymentTopupRequested>(_onTopup);
     on<PaymentTransferRequested>(_onTransfer);
+    on<ProcessDeepLinkPaymentEvent>(_onDeepLinkPayment);
     on<PaymentReset>((_, emit) => emit(PaymentInitial()));
   }
 
@@ -129,6 +170,33 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       emit(PaymentError(e.message));
     } on NetworkFailure catch (e) {
       emit(PaymentError(e.message));
+    }
+  }
+
+  /// Handler pembayaran dari Deep Link RentBike
+  Future<void> _onDeepLinkPayment(
+    ProcessDeepLinkPaymentEvent event,
+    Emitter<PaymentState> emit,
+  ) async {
+    emit(PaymentLoading());
+    try {
+      final remainingBalance = await _deepLinkPayment(
+        trxId: event.trxId,
+        amount: event.amount,
+        description: event.description,
+        otpCode: event.otpCode,
+      );
+      emit(DeepLinkPaymentSuccess(
+        trxId: event.trxId,
+        amount: event.amount,
+        remainingBalance: remainingBalance,
+      ));
+    } on InvalidOtpFailure catch (e) {
+      emit(PaymentInvalidOtp(e.message));
+    } on InsufficientBalanceFailure catch (e) {
+      emit(PaymentInsufficientBalance(balance: e.balance, amount: e.amount));
+    } catch (e) {
+      emit(PaymentError('Pembayaran gagal: ${e.toString()}'));
     }
   }
 }

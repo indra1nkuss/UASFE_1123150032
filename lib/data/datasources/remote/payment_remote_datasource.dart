@@ -10,6 +10,11 @@ abstract class PaymentRemoteDatasource {
     required String otpCode,
     required String otpType,
   });
+  Future<TransferResultEntity> transferForDeepLink({
+    required double amount,
+    required String description,
+    required String otpCode,
+  });
 }
 
 class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource {
@@ -38,6 +43,30 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource {
       'description': description,
       'otp_code': otpCode,
       'otp_type': otpType,
+    });
+    final data = response['data'] as Map<String, dynamic>;
+    return TransferResultEntity(
+      transactionId: (data['transaction_id'] as num).toInt(),
+      amount: (data['amount'] as num).toDouble(),
+      description: data['description'] as String? ?? '',
+      balanceBefore: (data['balance_before'] as num).toDouble(),
+      balanceAfter: (data['balance_after'] as num).toDouble(),
+      createdAt: DateTime.tryParse(data['created_at'] as String? ?? '') ?? DateTime.now(),
+    );
+  }
+
+  /// Transfer tanpa OTP – dipakai khusus untuk Deep Link (PIN sudah diverifikasi di client)
+  @override
+  Future<TransferResultEntity> transferForDeepLink({
+    required double amount,
+    required String description,
+    required String otpCode,
+  }) async {
+    final response = await _client.post(ApiEndpoints.transfer, data: {
+      'amount': amount,
+      'description': description,
+      'otp_code': otpCode,
+      'otp_type': 'totp',
     });
     final data = response['data'] as Map<String, dynamic>;
     return TransferResultEntity(

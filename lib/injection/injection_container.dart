@@ -1,6 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/network/api_client.dart';
+import '../data/datasources/local/balance_preferences_datasource.dart';
 import '../data/datasources/local/secure_storage_datasource.dart';
 import '../data/datasources/remote/account_remote_datasource.dart';
 import '../data/datasources/remote/auth_remote_datasource.dart';
@@ -35,12 +37,18 @@ Future<void> init() async {
     aOptions: AndroidOptions(encryptedSharedPreferences: true),
   );
 
+  // SharedPreferences untuk saldo lokal
+  final sharedPreferences = await SharedPreferences.getInstance();
+
   // Core
   sl.registerLazySingleton<ApiClient>(() => ApiClient());
 
-  // Local datasource
+  // Local datasources
   sl.registerLazySingleton<SecureStorageDatasource>(
     () => SecureStorageDatasourceImpl(secureStorage),
+  );
+  sl.registerLazySingleton<BalancePreferencesDataSource>(
+    () => BalancePreferencesDataSource(sharedPreferences),
   );
 
   // Remote datasources
@@ -68,7 +76,7 @@ Future<void> init() async {
     () => AccountRepositoryImpl(sl()),
   );
   sl.registerLazySingleton<PaymentRepository>(
-    () => PaymentRepositoryImpl(sl()),
+    () => PaymentRepositoryImpl(sl(), sl()),
   );
 
   // Use Cases — Auth
@@ -90,6 +98,7 @@ Future<void> init() async {
   // Use Cases — Payment
   sl.registerLazySingleton(() => TopupUsecase(sl()));
   sl.registerLazySingleton(() => TransferUsecase(sl()));
+  sl.registerLazySingleton(() => DeepLinkPaymentUsecase(sl()));
 
   // BLoCs
   sl.registerFactory(() => AuthBloc(
@@ -111,6 +120,7 @@ Future<void> init() async {
   sl.registerFactory(() => PaymentBloc(
         topup: sl(),
         transfer: sl(),
+        deepLinkPayment: sl(),
       ));
 }
 
