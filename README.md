@@ -245,3 +245,102 @@ Berikut adalah pustaka (*packages*) utama penyokong fitur aplikasi ini (dapat di
   - `shared_preferences` (^2.3.4): Menampung sinkronisasi riwayat saldo statis (*BalanceLocal*).
 - **Integrasi Firebase:**
   - `firebase_auth`, `firebase_core`, `google_sign_in`: Mengurus *login*, pendaftaran, serta distribusi OTP lewat email.
+
+---
+
+## 📸 Hasil Screenshot Tampilan Aplikasi
+
+### 📲 eMoneyID (Aplikasi Utama)
+
+<table>
+  <tr>
+    <td align="center"><b>1. Tampilan Awal (Splash Screen)</b></td>
+    <td align="center"><b>2. Halaman Login</b></td>
+    <td align="center"><b>3. Halaman Daftar Akun</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-awal.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-login.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-daftarakun.jpeg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>4. Verifikasi OTP</b></td>
+    <td align="center"><b>5. Halaman Beranda (Home)</b></td>
+    <td align="center"><b>6. Halaman Top Up Saldo</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-otp.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-home.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-topup.jpeg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>7. Halaman Profil & Akun</b></td>
+    <td align="center"><b>8. Halaman Autentikator</b></td>
+    <td align="center"><b>9. Pengaturan 2FA</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-akun.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-autentifikator.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-2fA.jpeg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>10. Konfirmasi Pembayaran</b></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/1nkusemoney/tampilan-konfirmasipembayaran.jpeg" width="250"></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+### 📊 Riwayat Transaksi
+
+<table>
+  <tr>
+    <td align="center"><b>1. Riwayat Semua Transaksi</b></td>
+    <td align="center"><b>2. Riwayat Pengeluaran</b></td>
+    <td align="center"><b>3. Riwayat Pemasukan</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/1nkusemoney/riwayat-semua.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/riwayat-pengeluaran.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/1nkusemoney/riwayat-pemasukan.jpeg" width="250"></td>
+  </tr>
+</table>
+
+### 🚲 eComerce RentBike (Aplikasi Mitra)
+
+<table>
+  <tr>
+    <td align="center"><b>1. Halaman Login</b></td>
+    <td align="center"><b>2. Halaman Daftar Akun</b></td>
+    <td align="center"><b>3. Halaman Beranda (Home)</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-login.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-daftarakun.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-home.jpeg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>4. Halaman Profil & Akun</b></td>
+    <td align="center"><b>5. Halaman Checkout</b></td>
+    <td align="center"><b>6. Pilihan Metode Pembayaran</b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-akun.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-checkout.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-pilihpembayaran.jpeg" width="250"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>7. Konfirmasi Pembayaran</b></td>
+    <td align="center"><b>8. Halaman Bayar</b></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-konfirmasipembayaran.jpeg" width="250"></td>
+    <td align="center"><img src="assets/images/ecomerce-rentbike/tampilan-bayar.jpeg" width="250"></td>
+    <td></td>
+  </tr>
+</table>
