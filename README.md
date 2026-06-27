@@ -344,3 +344,17 @@ Berikut adalah pustaka (*packages*) utama penyokong fitur aplikasi ini (dapat di
     <td></td>
   </tr>
 </table>
+
+---
+
+## 🎬 Demo Video
+
+<p align="center">
+  <a href="https://youtu.be/MoBqWi3-7Y4?si=ij-4Q-_1g_ZxDyrf">
+    <img src="https://img.youtube.com/vi/MoBqWi3-7Y4/maxresdefault.jpg" alt="Demo eMoneyID" width="560">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/MoBqWi3-7Y4?si=ij-4Q-_1g_ZxDyrf"><b>▶ Tonton Demo di YouTube</b></a>
+</p>
